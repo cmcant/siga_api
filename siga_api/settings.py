@@ -19,7 +19,9 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny',
+
     ]
 }
 
@@ -27,7 +29,7 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = (
     'rest_framework',
-    'rest_framework.authtoken',
+    #'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,12 +74,31 @@ WSGI_APPLICATION = 'siga_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+op=2
+
+if op==1:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
+if op==2:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'sql_server.pyodbc',
+            'NAME': 'dbSigaCordIMH',
+            'USER': 'sa',
+            'PASSWORD': 'sa',
+            'HOST': 'DESKTOP-P6HI5HO\SQL2008',
+            'PORT': '1433',
+
+            'OPTIONS': {
+                'driver': 'ODBC Driver 13 for SQL Server',
+            },
+        },
+    }
 
 
 # Internationalization
